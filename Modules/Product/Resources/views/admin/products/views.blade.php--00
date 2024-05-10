@@ -1,0 +1,26 @@
+@extends('admin::layout')
+@component('admin::components.page.header')
+    @slot('title', 'Mostly Viewed Products')
+
+    <li class="active">{{ trans('product::products.products') }}</li>
+@endcomponent
+@component('admin::components.page.index_table')
+@slot('thead')
+        @include('product::admin.products.partials.views_thead', ['name' => 'products-index'])
+    @endslot
+@endcomponent
+@push('scripts')
+    <script>
+        new DataTable('#products-table .table', {
+            columns: [
+                { data: 'checkbox', orderable: false, searchable: false, width: '3%' },
+                { data: 'first_name', width: '5%' },
+                { data: 'email', orderable: false, searchable: false, width: '10%' },
+                { data: 'slug', orderable: false, defaultContent: '' },
+                { data: 'views', searchable: false },
+                { data: ''	, searchable: false },
+                
+            ],
+        });
+    </script>
+@endpush
